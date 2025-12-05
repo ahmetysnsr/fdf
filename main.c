@@ -6,7 +6,7 @@
 /*   By: asari <asari@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 18:39:14 by asari             #+#    #+#             */
-/*   Updated: 2025/12/05 03:45:07 by asari            ###   ########.fr       */
+/*   Updated: 2025/12/05 08:08:36 by asari            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,9 @@ int	main(int argc, char **argv)
 	t_map	map;
 	t_fdf	fdf;
 
+	map.height = 0;
+	map.width = 0;
+	map.matrix = NULL;
 	if (argc != 2)
 		return (1);
 	if (!setup_map(&map, argv[1]))

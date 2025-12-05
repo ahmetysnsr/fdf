@@ -6,7 +6,7 @@
 /*   By: asari <asari@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 03:24:18 by asari             #+#    #+#             */
-/*   Updated: 2025/12/05 03:52:13 by asari            ###   ########.fr       */
+/*   Updated: 2025/12/05 08:42:48 by asari            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ typedef struct s_fdf
 	t_map	*map;
 }	t_fdf;
 
-typedef struct s_bresenham
+typedef struct s_line_info
 {
 	int		x0;
 	int		y0;
@@ -69,10 +69,7 @@ typedef struct s_bresenham
 	int		color;
 	int		dx;
 	int		dy;
-	int		sx;
-	int		sy;
-	int		err;
-}	t_bresenham;
+}	t_line_info;
 
 char		**ft_split(char *s, char c);
 void		free_split(char **split);
@@ -93,7 +90,7 @@ void		render_map(void *mlx, void *win, t_map *map);
 void		compute_view(t_map *map, t_view *v);
 float		cal_scale(t_map *map, t_view *v);
 void		img_put_pixel(t_img *img, int x, int y, int color);
-void		bresenham_img(t_img *img, t_bresenham *b);
+void		line_alg(t_img *img, t_line_info *b);
 t_vector	project_iso(int x, int y, int z, t_view *v);
 int			my_abs(int num);
 

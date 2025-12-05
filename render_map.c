@@ -6,7 +6,7 @@
 /*   By: asari <asari@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 11:35:02 by asari             #+#    #+#             */
-/*   Updated: 2025/12/05 04:45:16 by asari            ###   ########.fr       */
+/*   Updated: 2025/12/05 08:40:23 by asari            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,41 +15,39 @@
 
 void	trace_line(t_img *img, t_vector p1, t_vector p2, int color)
 {
-	t_bresenham	b;
+	t_line_info	b;
 
 	b.x0 = p1.x;
 	b.y0 = p1.y;
 	b.x1 = p2.x;
 	b.y1 = p2.y;
 	b.color = color;
-	bresenham_img(img, &b);
+	line_alg(img, &b);
 }
 
-void	bresenham_img(t_img *img, t_bresenham *b)
+void	line_alg(t_img *img, t_line_info *b)
 {
-	int	e2;
+	float	x;
+	float	y;
+	float	x_inc;
+	float	y_inc;
+	int		steps;
 
-	b->dx = my_abs(b->x1 - b->x0);
-	b->dy = -my_abs(b->y1 - b->y0);
-	b->sx = ft_ternary(b->x0 < b->x1, 1, -1);
-	b->sy = ft_ternary(b->y0 < b->y1, 1, -1);
-	b->err = b->dx + b->dy;
-	while (1)
+	b->dx = b->x1 - b->x0;
+	b->dy = b->y1 - b->y0;
+	if (my_abs(b->dx) > my_abs(b->dy))
+		steps = my_abs(b->dx);
+	else
+		steps = my_abs(b->dy);
+	x_inc = b->dx / (float)steps;
+	y_inc = b->dy / (float)steps;
+	x = b->x0;
+	y = b->y0;
+	while (steps-- >= 0)
 	{
-		img_put_pixel(img, b->x0, b->y0, b->color);
-		if (b->x0 == b->x1 && b->y0 == b->y1)
-			break ;
-		e2 = 2 * b->err;
-		if (e2 >= b->dy)
-		{
-			b->err += b->dy;
-			b->x0 += b->sx;
-		}
-		if (e2 <= b->dx)
-		{
-			b->err += b->dx;
-			b->y0 += b->sy;
-		}
+		img_put_pixel(img, (int)(x + 0.5), (int)(y + 0.5), b->color);
+		x += x_inc;
+		y += y_inc;
 	}
 }
 
